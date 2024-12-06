@@ -1,3 +1,5 @@
+# In matrix notation, we use a[i, j]. Basically, here it is a[y, x].
+
 TEXT = 'XMAS'
 L = len(TEXT)
 S = 0
@@ -53,9 +55,9 @@ def is_valid(x, y):
     nrow = len(pg) 
 
     for orient, (dy, dx) in directions.items():
-        n_x = x + L * dx
-        n_y = y + L * dy
-        if 0 <= n_x <= ncol and 0 <= n_y <= nrow:
+        n_x = x + (L-1) * dx
+        n_y = y + (L-1) * dy
+        if 0 <= n_x < ncol and 0 <= n_y < nrow:
             yes += orient
     return yes
 
