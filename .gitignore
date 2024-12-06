@@ -1,0 +1,4 @@
+*.txt
+input*.txt
+input*.py
+**/input[s]
