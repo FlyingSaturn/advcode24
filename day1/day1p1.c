@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[])
 {
-	FILE *file = fopen("input_day1p1.txt", "r");
+	FILE *file = fopen("../inputs/input_day1p1.txt", "r");
 	if (file == NULL)
 	{
 		printf("Could not read file. Terminating the program...");

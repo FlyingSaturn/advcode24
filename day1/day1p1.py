@@ -1,7 +1,7 @@
 first = []
 second = []
 
-with open("input_day1p1.txt") as file:
+with open("../inputs/input_day1p1.txt") as file:
     for line in file:
         row = line.rstrip().split("   ")
         first.append(int(row[0]))

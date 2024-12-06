@@ -8,7 +8,7 @@ class Day2P2 {
     public static void main(String args[]) {
         int safe = 0;
         try {
-            Scanner sc = new Scanner(new File("input_day2.txt"));
+            Scanner sc = new Scanner(new File("../inputs/input_day2.txt"));
             outer: while (sc.hasNextLine()) {
                 // Taking inputs
                 String line = sc.nextLine();

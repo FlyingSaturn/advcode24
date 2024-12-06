@@ -16,7 +16,7 @@ directions = {
 
 def main():
     global pg
-    with open('input_day4.txt') as file:
+    with open('../inputs/input_day4.txt') as file:
         for line in file:
             linearr = list(line.strip())
             pg.append(linearr)

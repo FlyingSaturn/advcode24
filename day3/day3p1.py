@@ -11,7 +11,7 @@ S = 0
 
 def main():
     text = ""
-    with open("input_day3.txt") as file:
+    with open("../inputs/input_day3.txt") as file:
         text = file.read()
     matches = findall(r'mul\([0-9]{1,3}\,[0-9]{1,3}\)', text);
     text=""
