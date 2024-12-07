@@ -57,7 +57,7 @@ class Day4P2 {
     if (pg.get(i - 1).get(j + 1) == 'M' && pg.get(i + 1).get(j - 1) == 'S')
       f++;
     // Non-principal diagonal, M above
-    else if (pg.get(i - 1).get(j - 1) == 'S' && pg.get(i + 1).get(j + 1) == 'M')
+    else if (pg.get(i - 1).get(j + 1) == 'S' && pg.get(i + 1).get(j - 1) == 'M')
       f++;
     if (f == 2)
         S++;
