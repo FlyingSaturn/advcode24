@@ -46,17 +46,20 @@ class Day4P2 {
   void checker(int i, int j) {
     if (pg.get(i).get(j) != 'A')
       return;
+    int f = 0;
     // Principal diagonal, M above
     if (pg.get(i - 1).get(j - 1) == 'M' && pg.get(i + 1).get(j + 1) == 'S')
-      S++;
+      f += 1
     // Principal diagonal, S above
-    if (pg.get(i - 1).get(j - 1) == 'S' && pg.get(i + 1).get(j + 1) == 'M')
-      S++;
+    else if (pg.get(i - 1).get(j - 1) == 'S' && pg.get(i + 1).get(j + 1) == 'M')
+      f += 1
     // Non-principal diagonal, M above
     if (pg.get(i - 1).get(j + 1) == 'M' && pg.get(i + 1).get(j - 1) == 'S')
-      S++;
+      f += 1;
     // Non-principal diagonal, M above
-    if (pg.get(i - 1).get(j - 1) == 'S' && pg.get(i + 1).get(j + 1) == 'M')
-      S++;
+    else if (pg.get(i - 1).get(j - 1) == 'S' && pg.get(i + 1).get(j + 1) == 'M')
+      f += 1;
+    if (f == 2)
+        S++;
   }
 }
