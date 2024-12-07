@@ -49,16 +49,16 @@ class Day4P2 {
     int f = 0;
     // Principal diagonal, M above
     if (pg.get(i - 1).get(j - 1) == 'M' && pg.get(i + 1).get(j + 1) == 'S')
-      f += 1
+      f++;
     // Principal diagonal, S above
     else if (pg.get(i - 1).get(j - 1) == 'S' && pg.get(i + 1).get(j + 1) == 'M')
-      f += 1
+      f++;
     // Non-principal diagonal, M above
     if (pg.get(i - 1).get(j + 1) == 'M' && pg.get(i + 1).get(j - 1) == 'S')
-      f += 1;
+      f++;
     // Non-principal diagonal, M above
     else if (pg.get(i - 1).get(j - 1) == 'S' && pg.get(i + 1).get(j + 1) == 'M')
-      f += 1;
+      f++;
     if (f == 2)
         S++;
   }
