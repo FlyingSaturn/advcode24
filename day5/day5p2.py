@@ -17,21 +17,24 @@ def main():
     print(S)
 
 
-def correct(li, m, n):
+def correct(li, m, n, flg):
     for (a, b) in order:
         if a in li and b in li:
-            if a != m and b != n:
+            if (a != m and b != n) or order[len(order) - 1] == (a, b):
                 a_l = li.index(a)
                 b_l = li.index(b)
                 if a_l > b_l:
+                    flg = True
                     li[a_l], li[b_l] = li[b_l], li[a_l]
-                    correct(li, a, b)
-    return
+                    correct(li, a, b, flg)
+    if flg:
+        return True
+    return False
 
 def poscheck():
     global S
     for i in pages:
-        correct(i, *order[len(order) - 1])
-        S += int(i[(len(i) - 1) // 2])
+        if correct(i, *order[len(order) - 1], False):
+            S += int(i[(len(i) - 1) // 2])
 
 main()
