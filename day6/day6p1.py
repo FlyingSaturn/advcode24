@@ -50,18 +50,18 @@ def check():
         return -1
     
     # A turn is a move here
+    oldd=direction
     if lab[n_i][n_j] == '#':
         D = list(newdict.keys())
         direction = D[(D.index(direction) + 1) % 4]
         return 1
-
     # Replace the remaining
     lab[pos[0]][pos[1]] = 'X'
     pos[0] = n_i
     pos[1] = n_j
 
     # Already traversed
-    if lab[n_i][n_j] == 'X':
+    if lab[n_i][n_j] == 'X' and oldd == direction:
         return 2
 
     # Not already traversed remains
