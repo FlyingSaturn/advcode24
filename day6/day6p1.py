@@ -1,5 +1,8 @@
 from itertools import cycle
 from re import search
+import os
+import time
+import sys
 
 p = 1 # No. of positions visited
 direct = {
@@ -21,9 +24,9 @@ def main():
             if not found:
                 k += 1
             linearr = list(line.strip())
-            if search(r'(\^|>|v|<)', line.strip()) is not None:
+            if search(r'(\^|>|v|<)', line.strip()):
                 found = True
-                pos.append(k)
+                pos.append(k-1)
                 if '^' in line:
                     direction = 'u'
                     pos.append(linearr.index('^'))  
@@ -73,6 +76,14 @@ def traverse():
     a = 0
     while a != -1:
         a = check()
+        #time.sleep(.5)
+        #os.system("clear")
+        #for i in range(0, len(lab)):
+            #for j in range(0, len(lab[0])):
+            #    sys.stdout.write(f"{lab[i][j]} ")
+            # sys.stdout.write(f"\n")
+    #print(pos)
+    #print("Total length:", len(lab), len(lab[0]))
     print(p)
     
 
