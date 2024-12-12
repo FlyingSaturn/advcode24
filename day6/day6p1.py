@@ -21,7 +21,7 @@ def main():
             if not found:
                 k += 1
             linearr = list(line.strip())
-            if search('(^|>|v|<)', line.strip()) is not None:
+            if search(r'(\^|>|v|<)', line.strip()):
                 found = True
                 pos.append(k)
                 if '^' in line:
@@ -51,9 +51,9 @@ def check():
     
     # A turn is a move here
     if lab[n_i][n_j] == '#':
-        D = list(newdict.keys())
+        D = list(direct.keys())
         direction = D[(D.index(direction) + 1) % 4]
-        return 1
+        return check()
 
     # Replace the remaining
     lab[pos[0]][pos[1]] = 'X'
