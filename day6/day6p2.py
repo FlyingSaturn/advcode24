@@ -12,7 +12,8 @@ pos=[]
 initpos=[]
 labinit=[]
 labfin=[]
-direction=''
+visited=[]
+cookies = False
 # For obstruction
 obperfect_chumu=0
 
@@ -29,39 +30,45 @@ def main():
                 found = True
                 initpos.append(k-1)
                 if '^' in line:
-                    direction = 'u'
                     initpos.append(linearr.index('^'))  
+                    initpos.append('u')
                 if '>' in line:
-                    direction = 'r'
                     initpos.append(linearr.index('>'))  
+                    initpos.append('r')
                 if 'v' in line:
-                    direction = 'd'
                     initpos.append(linearr.index('v'))
+                    initpos.append('d')
                 if '<' in line:
-                    direction = 'l'
                     initpos.append(linearr.index('<'))  
+                    initpos.append('l')
             labinit.append(linearr)
     pos = list(initpos)
     traverse_ultima()
    
 
 def check(l):
-    global pos, direction
-    n_i = pos[0] + direct[direction][0]
-    n_j = pos[1] + direct[direction][1]
+    global pos, visited, cookies
+
+    n_i = pos[0] + direct[pos[2]][0]
+    n_j = pos[1] + direct[pos[2]][1]
     
     # Finished
     if n_i >= len(l) or n_j >= len(l[0]) or n_i < 0 or n_j < 0:
         if l[pos[0]][pos[1]] not in ['^', 'v', '<', '>']:
             l[pos[0]][pos[1]] = 'X'
         return -1
-    
+    if cookies:
+        if pos not in visited:
+            visited.append(pos)
+        else:
+            return 299792458
+
     # A turn is a move here
     if l[n_i][n_j] in ['#', 'O']:
+        if 'O' == l[n_i][n_j]:
+            cookies=True
         D = list(direct.keys())
-        direction = D[(D.index(direction) + 1) % 4]
-        if l[n_i][n_j] == 'O':
-            return 299792458
+        pos[2] = D[(D.index(pos[2]) + 1) % 4]
         return check(l)
 
     # Replace the remaining
@@ -91,26 +98,27 @@ def traverse():
 
     
 def obstructed(i, j):
-    global labinit, obperfect_chumu
+    global labinit, obperfect_chumu, pos, initpos, visited, cookies
     # Place the obstructor on a duplicate scenario after you get a call from traverse()
     # Traverse with that obstructor
     # If the thing is perfectly traversing AGAIN by that obstructor, make a minimum
     lab1 = [row[:] for row in labinit]
     lab1[i][j] = 'O'
+    pos = initpos
     a = 0
+    success = False
     # p = 0
-    firsttime = True
+    visited = []
+    cookies = False
     while a != -1:
         a = check(lab1)
-        if a == 0:
+        # if a == 0:
             # p += 1
-        if a == 299792458 and firsttime == False:
-            break
-        else:
-            firsttime = False
-    if a == 299792458 and firsttime == False:
-        obperfect_chumu += 1
-        return True
+        if a == 299792458:
+            obperfect_chumu += 1
+            cookies = False
+            return True
+    cookies = False
     return False
 
 def traverse_ultima():
@@ -128,3 +136,9 @@ def traverse_ultima():
 
 
 main()
+for i in labfin:
+    print(" ".join(i))
+print("")
+for j in labinit:
+    print(" ".join(j))
+
