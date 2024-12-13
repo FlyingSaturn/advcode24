@@ -60,7 +60,7 @@ def check(l):
     if l[n_i][n_j] in ['#', 'O']:
         D = list(direct.keys())
         direction = D[(D.index(direction) + 1) % 4]
-        if l[n_i][n_j] in ['#', 'O']:
+        if l[n_i][n_j] == 'O':
             return 299792458
         return check(l)
 
@@ -78,7 +78,8 @@ def check(l):
     return 0
 
 def traverse():
-    lab = labinit
+    global labinit, labfin
+    lab = [row[:] for row in labinit]
     a = 0
     # p = 0
     while a != -1:
@@ -86,22 +87,23 @@ def traverse():
         # if a == 0:
             # p += 1
     # print(p)
-    labfin = lab
+    labfin = [row[:] for row in lab]
+
     
 def obstructed(i, j):
     global labinit, obperfect_chumu
     # Place the obstructor on a duplicate scenario after you get a call from traverse()
     # Traverse with that obstructor
     # If the thing is perfectly traversing AGAIN by that obstructor, make a minimum
-    lab1 = labinit
+    lab1 = [row[:] for row in labinit]
     lab1[i][j] = 'O'
     a = 0
-    p = 0
+    # p = 0
     firsttime = True
     while a != -1:
         a = check(lab1)
         if a == 0:
-            p += 1
+            # p += 1
         if a == 299792458 and firsttime == False:
             break
         else:
@@ -113,11 +115,13 @@ def obstructed(i, j):
 
 def traverse_ultima():
     global obperfect_chumu
-    traverse()
+    traverse() 
+    
     for i in range(0, len(labfin)):
         for j in range(0, len(labfin[0])):
             if labfin[i][j] == 'X':
-                obstructed(i, j)
+                if obstructed(i, j):
+                    print(i, j)
 
     print(obperfect_chumu)
 
