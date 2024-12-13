@@ -14,14 +14,12 @@ labinit=[]
 labfin=[]
 visited=[]
 cookies = False
-# For obstruction
-obperfect_chumu=0
 
 def main():
     global labinit, direction, pos, initpos
     k = 0
     found = False
-    with open("input_day6.txt") as file:
+    with open("../inputs/input_day6.txt") as file:
         for line in file:
             if not found:
                 k += 1
@@ -57,12 +55,7 @@ def check(l):
         if l[pos[0]][pos[1]] not in ['^', 'v', '<', '>']:
             l[pos[0]][pos[1]] = 'X'
         return -1
-    if cookies:
-        if pos not in visited:
-            visited.append(pos)
-        else:
-            return 299792458
-
+    
     # A turn is a move here
     if l[n_i][n_j] in ['#', 'O']:
         if 'O' == l[n_i][n_j]:
@@ -70,6 +63,12 @@ def check(l):
         D = list(direct.keys())
         pos[2] = D[(D.index(pos[2]) + 1) % 4]
         return check(l)
+    if cookies:
+        if [n_i, n_j, pos[2]] not in visited:
+            visited.append([n_i, n_j, pos[2]])
+        else:
+            return 299792458
+
 
     # Replace the remaining
     if l[pos[0]][pos[1]] not in ['^', 'v', '<', '>']:
@@ -98,47 +97,38 @@ def traverse():
 
     
 def obstructed(i, j):
-    global labinit, obperfect_chumu, pos, initpos, visited, cookies
+    global labinit, pos, initpos, visited, cookies
     # Place the obstructor on a duplicate scenario after you get a call from traverse()
     # Traverse with that obstructor
     # If the thing is perfectly traversing AGAIN by that obstructor, make a minimum
     lab1 = [row[:] for row in labinit]
     lab1[i][j] = 'O'
-    pos = initpos
+    pos = list(initpos)
     a = 0
-    success = False
     # p = 0
     visited = []
     cookies = False
     while a != -1:
         a = check(lab1)
-        # if a == 0:
+                # if a == 0:
             # p += 1
         if a == 299792458:
-            obperfect_chumu += 1
             cookies = False
             return True
     cookies = False
     return False
 
 def traverse_ultima():
-    global obperfect_chumu
+    # For obstruction
+    obperfect_chumu = 0
     traverse() 
-    
     for i in range(0, len(labfin)):
         for j in range(0, len(labfin[0])):
             if labfin[i][j] == 'X':
                 if obstructed(i, j):
-                    print(i, j)
-
+                    obperfect_chumu += 1
     print(obperfect_chumu)
 
 
 
 main()
-for i in labfin:
-    print(" ".join(i))
-print("")
-for j in labinit:
-    print(" ".join(j))
-
